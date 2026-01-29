@@ -3,139 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ke-Commit: Life</title>
+    <title>Ke's Moments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #0d1117;
-            --text-color: #c9d1d9;
-            --accent-color: #58a6ff;
-            --commit-feat: #3fb950;
-            --commit-fix: #d73a49;
-            --commit-border: #30363d;
+        :root { 
+            --bg-cream: #FCF8F1; 
+            --accent-green: #7B8F7D; 
+            --warm-orange: #E89E7D;
+            --text-main: #5C544E;
         }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Fira Code', 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-cream); color: var(--text-main); }
+        .serif { font-family: 'DM Serif Display', serif; }
+        
+        /* 文青感圓角卡片 */
+        .moment-card { 
+            background: #FFFFFF; 
+            border-radius: 40px; 
+            box-shadow: 0 10px 30px rgba(189, 175, 159, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .terminal-header {
-            border-bottom: 1px solid var(--commit-border);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+        .moment-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(189, 175, 159, 0.25); }
+        
+        /* 活潑標籤樣式 */
+        .tag-pill { 
+            font-size: 11px; padding: 4px 12px; 
+            background: #F1E9E0; color: var(--accent-green);
+            border-radius: 20px; cursor: pointer; transition: 0.3s;
+            font-weight: 700;
         }
-
-        .user-info {
-            color: var(--accent-color);
-        }
-
-        .stats-bar {
-            background: #161b22;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--commit-border);
-            font-size: 0.9em;
-            margin: 15px 0;
-        }
-
-        .commit-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .commit-item {
-            border-left: 2px solid var(--commit-border);
-            padding-left: 20px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .commit-item::before {
-            content: '●';
-            position: absolute;
-            left: -7px;
-            top: 0;
-            color: var(--commit-border);
-        }
-
-        .commit-tag {
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            text-transform: uppercase;
-        }
-
-        .tag-feat { background: #238636; color: white; }
-        .tag-fix { background: #da3633; color: white; }
-        .tag-docs { background: #8b949e; color: white; }
-
-        .commit-title {
-            font-size: 1.1em;
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        .commit-meta {
-            font-size: 0.8em;
-            color: #8b949e;
-        }
-
-        footer {
-            margin-top: 50px;
-            font-size: 0.8em;
-            color: #484f58;
-            text-align: center;
-        }
+        .tag-pill:hover { background: var(--accent-green); color: white; }
+        
+        /* 隱藏原生 details 箭頭 */
+        details summary::-webkit-details-marker { display:none; }
+        details summary { list-style: none; }
     </style>
 </head>
-<body>
+<body class="p-6 md:p-12">
 
-    <div class="terminal-header">
-        <h1>$ cat Ke-Commit:Life</h1>
-        <div class="user-info">
-            <strong>Author:</strong> ke7232 (UEFI Developer / Triathlete)<br>
-            <strong>Status:</strong> 180cm / 80kg | Training for 226km
+    <header class="max-w-xl mx-auto mb-20">
+        <div class="flex flex-col items-center">
+            <h1 class="serif text-5xl mb-2 tracking-tight text-stone-800 cursor-pointer" onclick="location.reload()">Ke's Moments</h1>
+            <div class="h-1 w-12 bg-[#E89E7D] rounded-full mb-6"></div>
+            <p class="text-[11px] text-stone-400 uppercase tracking-[0.4em] mb-10">Life / Sports / <span class="italic">Mmmmmm</span></p>
+            
+            <div id="filter-bar" class="flex flex-wrap justify-center gap-3">
+                </div>
         </div>
-        <div class="stats-bar">
-            Current Target: <span style="color: #f1e05a;">Taipei Marathon @ 4:40:00</span>
-        </div>
-    </div>
+    </header>
 
-    <main>
-        <h3>Recent Commits</h3>
-        <ul class="commit-list">
-            <li class="commit-item">
-                <div class="commit-meta">2026-01-27 21:00</div>
-                <span class="commit-tag tag-feat">feat</span>
-                <a href="#" class="commit-title">226 Triathlon Training - Bike Session</a>
-                <p>Focused on TSS management and recovery interval.</p>
-            </li>
+    <section class="max-w-lg mx-auto mb-24">
+        <details class="group">
+            <summary class="text-center cursor-pointer group-open:hidden">
+                <div class="inline-block px-10 py-3 bg-white rounded-full shadow-sm text-sm text-stone-400 hover:shadow-md transition duration-300 font-light tracking-widest">
+                    + Capture a new moment
+                </div>
+            </summary>
+            <div class="mt-4 p-10 moment-card">
+                <form id="journalForm" class="space-y-6">
+                    <input type="text" id="title" placeholder="有個標題嗎？" class="w-full bg-transparent border-b-2 border-stone-100 py-2 focus:border-[#E89E7D] transition outline-none text-lg font-bold placeholder:text-stone-200" required>
+                    <textarea id="content" rows="2" placeholder="寫點什麼..." class="w-full bg-transparent border-b-2 border-stone-100 py-2 focus:border-[#E89E7D] transition outline-none placeholder:text-stone-200" required></textarea>
+                    <div class="flex gap-4">
+                        <input type="text" id="tags" placeholder="#Hashtags" class="flex-1 bg-transparent border-b border-stone-100 py-2 text-xs focus:outline-none">
+                        <input type="text" id="image" placeholder="Image URL..." class="flex-1 bg-transparent border-b border-stone-100 py-2 text-xs focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-[#7B8F7D] text-white rounded-full text-xs font-bold tracking-[0.3em] shadow-lg shadow-green-900/10 hover:brightness-110 transition">PUBLISH</button>
+                    <div class="text-center"><button type="button" onclick="document.querySelector('details').open=false" class="text-[10px] text-stone-300 uppercase tracking-widest">Close</button></div>
+                </form>
+            </div>
+        </details>
+    </section>
 
-            <li class="commit-item">
-                <div class="commit-meta">2026-01-15 10:30</div>
-                <span class="commit-tag tag-docs">docs</span>
-                <a href="#" class="commit-title">Japan Trip 2026: Final Itinerary</a>
-                <p>Karuizawa and Tokyo family trip confirmed. Packing list initialized.</p>
-            </li>
+    <main id="moments-grid" class="max-w-xl mx-auto space-y-20">
+        </main>
 
-            <li class="commit-item">
-                <div class="commit-meta">2026-01-03 18:45</div>
-                <span class="commit-tag tag-fix">fix</span>
-                <a href="#" class="commit-title">Swimming: Bow Wave Correction</a>
-                <p>Optimized head position to generate better bow wave at current speed.</p>
-            </li>
-        </ul>
-    </main>
-
-    <footer>
-        1 file changed, many memories added(+).<br>
-        © 2026 Ke-Commit: Life. Built with EDK2 logic.
+    <footer class="mt-32 text-center pb-20">
+        <p class="text-[10px] text-stone-300 tracking-[0.5em] uppercase">Slow down and enjoy the bits.</p>
     </footer>
 
+    <script>
+        const API_URL = '你的_GOOGLE_APPS_SCRIPT_網址';
+        let allData = [];
+
+        async function init() {
+            const res = await fetch(API_URL);
+            allData = await res.json();
+            renderFilters();
+            render(allData);
+        }
+
+        function renderFilters() {
+            const filterBar = document.getElementById('filter-bar');
+            const tags = new Set();
+            const years = new Set();
+            
+            allData.forEach(item => {
+                if(item.Category) item.Category.split(',').forEach(t => tags.add(t.trim().replace('#','')));
+                if(item.Date) years.add(new Date(item.Date).getFullYear());
+            });
+
+            let html = Array.from(years).sort((a,b)=>b-a).map(y => `<span class="tag-pill" onclick="filterByYear(${y})">${y}</span>`).join('');
+            html += Array.from(tags).map(t => `<span class="tag-pill" onclick="filterByTag('${t}')">#${t}</span>`).join('');
+            filterBar.innerHTML = html;
+        }
+
+        function render(items) {
+            const container = document.getElementById('moments-grid');
+            container.innerHTML = items.reverse().map(item => `
+                <article class="moment-card overflow-hidden">
+                    ${item.Image ? `<img src="${item.Image}" class="w-full h-80 object-cover">` : ''}
+                    <div class="p-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-[10px] font-bold text-[#E89E7D] uppercase tracking-tighter">${new Date(item.Date).toLocaleDateString('zh-TW', {month:'long', day:'numeric'})}</span>
+                            <div class="h-px flex-1 bg-stone-100"></div>
+                            <span class="text-[10px] text-stone-300 font-mono">${new Date(item.Date).getFullYear()}</span>
+                        </div>
+                        <h2 class="serif text-3xl text-stone-800 mb-4">${item.Title}</h2>
+                        <p class="text-sm text-stone-500 leading-loose font-light mb-6">${item.Content}</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${item.Category ? item.Category.split(',').map(t => `<span class="text-[10px] text-[#7B8F7D] font-bold italic opacity-60">#${t.trim().replace('#','')}</span>`).join('') : ''}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function filterByTag(tag) { render(allData.filter(i => i.Category && i.Category.includes(tag))); }
+        function filterByYear(year) { render(allData.filter(i => new Date(i.Date).getFullYear() === year)); }
+
+        init();
+    </script>
 </body>
 </html>
