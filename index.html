@@ -3,172 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ke's Moments | Archive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+    <title>Ke-Commit: Life</title>
     <style>
-        :root { --nordic-beige: #F5EBE0; --nordic-dark: #4E4941; --nordic-accent: #D5BDAF; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--nordic-beige); color: var(--nordic-dark); }
-        .serif { font-family: 'DM Serif Display', serif; }
-        .sidebar-item:hover { color: var(--nordic-dark); background: rgba(255,255,255,0.5); }
-        .active-filter { font-weight: bold; color: #8E7D71; text-decoration: underline; }
-        /* 捲軸美化 */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--nordic-accent); border-radius: 10px; }
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --commit-feat: #3fb950;
+            --commit-fix: #d73a49;
+            --commit-border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .terminal-header {
+            border-bottom: 1px solid var(--commit-border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            color: var(--accent-color);
+        }
+
+        .stats-bar {
+            background: #161b22;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--commit-border);
+            font-size: 0.9em;
+            margin: 15px 0;
+        }
+
+        .commit-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .commit-item {
+            border-left: 2px solid var(--commit-border);
+            padding-left: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .commit-item::before {
+            content: '●';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            color: var(--commit-border);
+        }
+
+        .commit-tag {
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        .tag-feat { background: #238636; color: white; }
+        .tag-fix { background: #da3633; color: white; }
+        .tag-docs { background: #8b949e; color: white; }
+
+        .commit-title {
+            font-size: 1.1em;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .commit-meta {
+            font-size: 0.8em;
+            color: #8b949e;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #484f58;
+            text-align: center;
+        }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen">
+<body>
 
-    <aside class="w-full md:w-64 p-8 md:sticky md:top-0 md:h-screen overflow-y-auto border-r border-stone-200/50">
-        <h1 class="serif text-3xl mb-10 cursor-pointer" onclick="resetFilter()">Ke's Moments</h1>
-        
-        <div class="mb-10">
-            <h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-4">Hashtags</h4>
-            <div id="hashtag-list" class="flex flex-wrap gap-2 text-sm text-stone-500 font-light">
-                </div>
+    <div class="terminal-header">
+        <h1>$ cat Ke-Commit:Life</h1>
+        <div class="user-info">
+            <strong>Author:</strong> ke7232 (UEFI Developer / Triathlete)<br>
+            <strong>Status:</strong> 180cm / 80kg | Training for 226km
         </div>
-
-        <div>
-            <h4 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-4">Archive</h4>
-            <div id="archive-list" class="space-y-4 text-sm text-stone-500 font-light">
-                </div>
+        <div class="stats-bar">
+            Current Target: <span style="color: #f1e05a;">Taipei Marathon @ 4:40:00</span>
         </div>
-    </aside>
+    </div>
 
-    <main class="flex-1 p-6 md:p-12">
-        <section class="max-w-3xl mx-auto mb-16">
-            <div class="bg-white/40 p-6 rounded-3xl border border-white/60">
-                <form id="journalForm" class="space-y-4">
-                    <input type="text" id="title" placeholder="標題..." class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none" required>
-                    <textarea id="content" rows="2" placeholder="Mmmmmm..." class="w-full bg-transparent border-b border-stone-300 py-2 focus:outline-none" required></textarea>
-                    <div class="flex gap-4">
-                        <input type="text" id="tags" placeholder="#Hashtags (用逗號隔開)" class="flex-1 bg-transparent border-b border-stone-300 py-2 text-xs focus:outline-none">
-                        <input type="text" id="image" placeholder="Image URL..." class="flex-1 bg-transparent border-b border-stone-300 py-2 text-xs focus:outline-none">
-                    </div>
-                    <button type="submit" class="px-8 py-2 bg-stone-800 text-white rounded-full text-xs tracking-widest hover:bg-stone-700 transition">PUBLISH</button>
-                </form>
-            </div>
-        </section>
+    <main>
+        <h3>Recent Commits</h3>
+        <ul class="commit-list">
+            <li class="commit-item">
+                <div class="commit-meta">2026-01-27 21:00</div>
+                <span class="commit-tag tag-feat">feat</span>
+                <a href="#" class="commit-title">226 Triathlon Training - Bike Session</a>
+                <p>Focused on TSS management and recovery interval.</p>
+            </li>
 
-        <div id="filter-info" class="max-w-3xl mx-auto mb-8 text-xs italic text-stone-400 hidden"></div>
+            <li class="commit-item">
+                <div class="commit-meta">2026-01-15 10:30</div>
+                <span class="commit-tag tag-docs">docs</span>
+                <a href="#" class="commit-title">Japan Trip 2026: Final Itinerary</a>
+                <p>Karuizawa and Tokyo family trip confirmed. Packing list initialized.</p>
+            </li>
 
-        <div id="moments-grid" class="max-w-3xl mx-auto space-y-12">
-            </div>
+            <li class="commit-item">
+                <div class="commit-meta">2026-01-03 18:45</div>
+                <span class="commit-tag tag-fix">fix</span>
+                <a href="#" class="commit-title">Swimming: Bow Wave Correction</a>
+                <p>Optimized head position to generate better bow wave at current speed.</p>
+            </li>
+        </ul>
     </main>
 
-    <script>
-        const API_URL = '你的_GOOGLE_APPS_SCRIPT_URL';
-        let allItems = [];
+    <footer>
+        1 file changed, many memories added(+).<br>
+        © 2026 Ke-Commit: Life. Built with EDK2 logic.
+    </footer>
 
-        // 初始化：獲取資料
-        async function init() {
-            const res = await fetch(API_URL);
-            allItems = await res.json();
-            renderSidebar();
-            renderContent(allItems);
-        }
-
-        // 生成左側導覽
-        function renderSidebar() {
-            // 1. 生成 Hashtags
-            const tagMap = new Set();
-            allItems.forEach(item => {
-                if (item.Category) {
-                    item.Category.split(',').forEach(tag => tagMap.add(tag.trim()));
-                }
-            });
-            document.getElementById('hashtag-list').innerHTML = Array.from(tagMap).map(tag => 
-                `<span class="cursor-pointer hover:text-stone-800 transition" onclick="filterByTag('${tag}')">${tag}</span>`
-            ).join('');
-
-            // 2. 生成時間存檔 (Year > Month)
-            const archive = {};
-            allItems.forEach(item => {
-                const date = new Date(item.Date);
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
-                if (!archive[year]) archive[year] = new Set();
-                archive[year].add(month);
-            });
-
-            const sortedYears = Object.keys(archive).sort((a, b) => b - a);
-            document.getElementById('archive-list').innerHTML = sortedYears.map(year => `
-                <div class="year-group">
-                    <div class="font-medium text-stone-700 mb-1">${year}</div>
-                    <div class="pl-3 border-l border-stone-300 space-y-1">
-                        ${Array.from(archive[year]).sort((a,b)=>b-a).map(month => 
-                            `<div class="cursor-pointer hover:text-stone-800" onclick="filterByMonth(${year}, ${month})">${month}月</div>`
-                        ).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 渲染內容
-        function renderContent(items, filterName = '') {
-            const container = document.getElementById('moments-grid');
-            const info = document.getElementById('filter-info');
-            
-            if (filterName) {
-                info.innerText = `Showing results for: ${filterName}`;
-                info.classList.remove('hidden');
-            } else {
-                info.classList.add('hidden');
-            }
-
-            container.innerHTML = items.length ? items.map(item => `
-                <article class="group">
-                    <div class="flex flex-col md:flex-row gap-6 items-start">
-                        <div class="w-full md:w-1/3 text-[10px] text-stone-400 font-mono pt-2">
-                            ${new Date(item.Date).toLocaleDateString('zh-TW', {year:'numeric', month:'long', day:'numeric'})}
-                        </div>
-                        <div class="flex-1">
-                            <h2 class="serif text-2xl mb-3">${item.Title}</h2>
-                            <p class="text-sm text-stone-500 leading-relaxed mb-4 font-light">${item.Content}</p>
-                            ${item.Image ? `<img src="${item.Image}" class="rounded-2xl w-full max-h-80 object-cover mb-4">` : ''}
-                            <div class="flex gap-2 text-[10px] text-stone-300">
-                                ${item.Category ? item.Category.split(',').map(t => `<span class="px-2 py-0.5 border border-stone-200 rounded-full">${t.trim()}</span>`).join('') : ''}
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            `).join('') : '<p class="text-stone-300">這裡空空如也...</p>';
-        }
-
-        // 篩選功能
-        function filterByTag(tag) {
-            const filtered = allItems.filter(i => i.Category && i.Category.includes(tag));
-            renderContent(filtered, tag);
-        }
-
-        function filterByMonth(year, month) {
-            const filtered = allItems.filter(i => {
-                const d = new Date(i.Date);
-                return d.getFullYear() === year && (d.getMonth() + 1) === month;
-            });
-            renderContent(filtered, `${year}年 ${month}月`);
-        }
-
-        function resetFilter() {
-            renderContent(allItems);
-        }
-
-        // 提交表單邏輯 (保持原本的 doPost 結構)
-        document.getElementById('journalForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const formData = {
-                title: document.getElementById('title').value,
-                content: document.getElementById('content').value,
-                category: document.getElementById('tags').value, // 存入 Hashtag
-                image: document.getElementById('image').value,
-                date: new Date().toISOString()
-            };
-            // ... Fetch POST 邏輯 (同前次對話) ...
-            alert('發布成功！重新整理後即可看到。');
-            e.target.reset();
-        };
-
-        init();
-    </script>
 </body>
 </html>
